@@ -3,6 +3,7 @@ import io
 from selenium import webdriver
 import time
 import requests
+import base64
 
 # usragent:Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Mobile Safari/537.36
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')  # 改变标准输出的默认编码
@@ -42,8 +43,47 @@ browser.set_window_size(598, 702)
 browser.get(url2)
 browser.implicitly_wait(10)
 
+
+but = browser.find_element_by_class_name("van-button")
+browser.execute_script("arguments[0].click();", but)
+
+
+try:
+    wenxintishi=browser.find_element_by_class_name('van-button')
+    print('find')
+    wenxintishi.click()
+except:
+    time.sleep(2)
+    print('not find')
+    # browser.get(url2)
+
+
+try:
+    browser.find_element_by_class_name('sign-in-btn')
+    print('跳转成功')
+    browser.find_element_by_class_name('sign-in-btn')
+
+except:
+    print('跳转失败，重新跳转')
+    browser.get(url2)
+    time.sleep(3)
+    browser.find_element_by_class_name('sign-in-btn')
+    browser.find_element_by_class_name('van-button').click()
+
 # 关闭有个温馨提示的框
-browser.find_element_by_class_name('van-button').click()
+try:
+    wenxintishi=browser.find_element_by_class_name('van-button')
+    print('find')
+    wenxintishi.click()
+except:
+    time.sleep(2)
+    print('not find')
+    # browser.get(url2)
+
+time.sleep(3)
+
+
+
 time.sleep(3)
 browser.find_element_by_class_name('sign-in-btn').click()
 browser.find_elements_by_xpath('//label')[0].click()
@@ -52,13 +92,17 @@ browser.find_elements_by_xpath('//label')[14].click()
 
 time.sleep(2)
 
-# image = browser.find_element_by_tag_name('img').get_attribute('src')
+image = browser.find_element_by_tag_name('img').get_attribute('src')
 # print(image)
-# # 通过requests发送一个get请求到图片地址，返回的响应就是图片内容
-# r = requests.get(image)
-#
-# # 将获取到的图片二进制流写入本地文件
-# with open('yanzheng.png', 'wb') as f:
-#     # 对于图片类型的通过r.content方式访问响应内容，将响应内容写入png中
-#     f.write(r.content)
+# print(image.split(',')[1])
 
+from yanzhnegma import yanzheng
+print(image)
+# yanzheng(image)
+
+# 通过requests发送一个get请求到图片地址，返回的响应就是图片内容
+# # 将获取到的图片二进制流写入本地文件
+# resp = requests.get(image)
+#
+# with open(".\\911.jpg",'wb')as jpg:
+#     jpg.write(resp.content)
