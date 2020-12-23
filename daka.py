@@ -12,9 +12,9 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')  # 改变标�
 browser = webdriver.Chrome('/Users/rockontrol/Desktop/daka/chromedriver')
 
 # 基本信息，需要修改
-xuehao = 'xxxx'
+xuehao = 'xxx'
 name = 'xxx'
-password = 'xxxx'
+password = 'xxx'
 
 # 登录页面
 url = 'https://wxyqfk.zhxy.net/?yxdm=14262#/login'
@@ -93,16 +93,16 @@ browser.find_elements_by_xpath('//label')[14].click()
 time.sleep(2)
 
 image = browser.find_element_by_tag_name('img').get_attribute('src')
-# print(image)
-# print(image.split(',')[1])
-
-from yanzhnegma import yanzheng
 print(image)
-# yanzheng(image)
 
-# 通过requests发送一个get请求到图片地址，返回的响应就是图片内容
-# # 将获取到的图片二进制流写入本地文件
-# resp = requests.get(image)
-#
-# with open(".\\911.jpg",'wb')as jpg:
-#     jpg.write(resp.content)
+# print(image.split(',')[1])
+try :
+    browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    print('gun')
+except:
+    pass
+#保存验证码到本地
+#from yanzhnegma import base64change
+#base64change(image)
+
+
