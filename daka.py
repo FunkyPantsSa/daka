@@ -12,9 +12,9 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')  # 改变标�
 browser = webdriver.Chrome('/Users/rockontrol/Desktop/daka/chromedriver')
 
 # 基本信息，需要修改
-xuehao = 'xxx'
-name = 'xxx'
-password = 'xxx'
+xuehao = '20171818'
+name = '马清杰'
+password = '158314'
 
 # 登录页面
 url = 'https://wxyqfk.zhxy.net/?yxdm=14262#/login'
