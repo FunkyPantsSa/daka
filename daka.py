@@ -2,6 +2,7 @@ import sys
 import io
 from selenium import webdriver
 import time
+import json
 import requests
 import base64
 
@@ -12,9 +13,9 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')  # 改变标�
 browser = webdriver.Chrome('/Users/rockontrol/Desktop/daka/chromedriver')
 
 # 基本信息，需要修改
-xuehao = '20171818'
-name = '马清杰'
-password = '158314'
+xuehao = 'xxx'
+name = 'xxx'
+password = 'xxxx'
 
 # 登录页面
 url = 'https://wxyqfk.zhxy.net/?yxdm=14262#/login'
@@ -43,10 +44,15 @@ browser.set_window_size(598, 702)
 browser.get(url2)
 browser.implicitly_wait(10)
 
-
+try:
+    but = browser.find_element_by_class_name("van-button")
+    but.click()
+except:
+    browser.get(url2)
+# browser.get(url2)
 but = browser.find_element_by_class_name("van-button")
-browser.execute_script("arguments[0].click();", but)
-
+but.click()
+time.sleep(2)
 
 try:
     wenxintishi=browser.find_element_by_class_name('van-button')
@@ -79,13 +85,28 @@ except:
     time.sleep(2)
     print('not find')
     # browser.get(url2)
+time.sleep(3)
+try:
+    browser.find_element_by_class_name('sign-in-btn').click()
+except:
+    wenxintishi=browser.find_element_by_class_name('van-button')
+    print('find')
+    wenxintishi.click()
+    browser.find_element_by_class_name('sign-in-btn').click()
 
 time.sleep(3)
+try:
+    browser.find_element_by_tag_name('img')
+    # browser.get(url2)
+    time.sleep(3)
+    browser.find_element_by_class_name('sign-in-btn').click()
+    try:
+        browser.find_element_by_class_name('sign-in-btn').click()
+    except:
+        pass
+except:
+    pass
 
-
-
-time.sleep(3)
-browser.find_element_by_class_name('sign-in-btn').click()
 browser.find_elements_by_xpath('//label')[0].click()
 browser.find_elements_by_xpath('//label')[6].click()
 browser.find_elements_by_xpath('//label')[14].click()
@@ -93,7 +114,7 @@ browser.find_elements_by_xpath('//label')[14].click()
 time.sleep(2)
 
 image = browser.find_element_by_tag_name('img').get_attribute('src')
-print(image)
+
 
 # print(image.split(',')[1])
 try :
@@ -101,8 +122,20 @@ try :
     print('gun')
 except:
     pass
-#保存验证码到本地
-#from yanzhnegma import base64change
-#base64change(image)
+# print(image)
+
+#验证码识别ocr
+from recognize import recognize
+data1 = recognize(image)
+# print(data1)
+from recognize import json1
+k = json1(data1)
+# print(k)
+browser.find_elements_by_class_name("van-field__control")[2].send_keys(k)
+
+
+
+
+
 
 
