@@ -13,8 +13,8 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')  # 改变标�
 browser = webdriver.Chrome('/Users/rockontrol/Desktop/daka/chromedriver')
 
 # 基本信息，需要修改
-xuehao = 'xxx'
-name = 'xxx'
+xuehao = 'xxxx'
+name = 'xxxx'
 password = 'xxxx'
 
 # 登录页面
@@ -34,10 +34,11 @@ browser.find_elements_by_class_name("van-field__control")[3].send_keys(password)
 
 # 等待一定时间，让js脚本加载完毕
 browser.implicitly_wait(3)
+time.sleep(2)
 # browser.sleep(3)
 browser.find_element_by_xpath('//button').click()
 browser.implicitly_wait(3)
-
+time.sleep(2)
 # 地址重定向到登陆后页面
 url2 = 'https://wxyqfk.zhxy.net/?yxdm=14262#/clockIn'
 browser.set_window_size(598, 702)
@@ -50,13 +51,14 @@ try:
 except:
     browser.get(url2)
 # browser.get(url2)
-but = browser.find_element_by_class_name("van-button")
-but.click()
+
+# but = browser.find_element_by_class_name("van-button")
+# but.click()
 time.sleep(2)
 
 try:
     wenxintishi=browser.find_element_by_class_name('van-button')
-    print('find')
+    # print('find')
     wenxintishi.click()
 except:
     time.sleep(2)
@@ -90,7 +92,7 @@ try:
     browser.find_element_by_class_name('sign-in-btn').click()
 except:
     wenxintishi=browser.find_element_by_class_name('van-button')
-    print('find')
+    # print('find')
     wenxintishi.click()
     browser.find_element_by_class_name('sign-in-btn').click()
 
@@ -119,17 +121,20 @@ image = browser.find_element_by_tag_name('img').get_attribute('src')
 # print(image.split(',')[1])
 try :
     browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-    print('gun')
+    # print('gun')
 except:
     pass
-# print(image)
+print(image)
 
 #验证码识别ocr
 from recognize import recognize
+from recognize import recognize2
 data1 = recognize(image)
+data2 = recognize2(image)
 # print(data1)
 from recognize import json1
 k = json1(data1)
+m = json1(data2)
 # print(k)
 browser.find_elements_by_class_name("van-field__control")[2].send_keys(k)
 
